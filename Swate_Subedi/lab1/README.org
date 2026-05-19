@@ -18,7 +18,7 @@
 
  Here is the output of the lab code:
 
- [[output.png]]
+ [[./output.png]]
 
 ** Conclusion:
-From this lab, we are able to conclude that the I/O libraries in C and C++ are fundamentally different on how they implement their functions, C++ takes more general approach by making the function type independent and implements it inside the std namespace
+From this lab, we are able to conclude that the I/O libraries in C and C++ are fundamentally different on how they implement their functions, C++ takes more general approach by making the  functions type independent and also implements it inside the std namespace.
