@@ -1,39 +1,61 @@
-
 #include <iostream>
-#include <string>
 using namespace std;
 
-class Department {
+class Maths;
+
+class Physics {
 private:
-    int deptID;
-    string deptName;
+    int mark;
 
 public:
-    
-    Department(int id, string name) {
-        deptID = id;
-        deptName = name;
-        cout << "Constructor: [" << deptName << "] created\n";
+    Physics(int m) {
+        mark = m;
     }
 
-    
-    ~Department() {
-        cout << "Destructor: [" << deptName << "] going out of scope\n";
-    }
+    friend int totalMarks(Physics, Maths);
+    friend bool isDistinction(Physics, Maths);
 };
 
-int main() {
+class Maths {
+private:
+    int mark;
 
-    Department d1(1, "HR");         
-
-    {
-        Department d2(2, "Finance");    
-
-        {
-            Department d3(3, "IT");     
-
-        } 
+public:
+    Maths(int m) {
+        mark = m;
     }
 
-    return 0; 
+    friend int totalMarks(Physics, Maths);
+    friend bool isDistinction(Physics, Maths);
+};
+
+int totalMarks(Physics p, Maths m) {
+    return p.mark + m.mark;
+}
+
+bool isDistinction(Physics p, Maths m) {
+    return totalMarks(p, m) >= 160;
+}
+
+int main() {
+    int pMark, mMark;
+
+    cout << "Enter Physics Marks: ";
+    cin >> pMark;
+
+    cout << "Enter Maths Marks: ";
+    cin >> mMark;
+
+    Physics p(pMark);
+    Maths m(mMark);
+
+    cout << "Total Marks = "
+         << totalMarks(p, m) << endl;
+
+    if (isDistinction(p, m))
+        cout << "Distinction Achieved";
+    else
+        cout << "No Distinction";
+
+    return 0;
 }

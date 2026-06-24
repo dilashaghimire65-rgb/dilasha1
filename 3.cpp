@@ -1,66 +1,65 @@
-
 #include <iostream>
-#include <string>
 using namespace std;
 
-class BankAccount {
+class LibraryBook {
 private:
-    int accountNumber;
-    string holderName;
-    float balance;
+    string title;
+    string author;
+    bool isAvailable;
 
 public:
-    
-    BankAccount() {
-        accountNumber = 0;
-        holderName = "Unknown";
-        balance = 0;
-        cout << "Default constructor called\n";
+    LibraryBook(string t, string a) {
+        title = t;
+        author = a;
+        isAvailable = true;
     }
 
-       BankAccount(int acc, string name, float bal) {
-        accountNumber = acc;
-        holderName = name;
-        balance = bal;
-        cout << "Parameterised constructor called\n";
+    string getTitle() const {
+        return title;
     }
 
-       ~BankAccount() {
-        cout << "Destructor called for account: " << accountNumber << "\n";
+    string getAuthor() const {
+        return author;
     }
 
-    void deposit(float amount) {
-        balance = balance + amount;
-        cout << "Deposited: " << amount << "\n";
+    void display() const {
+        cout << "Title: " << title << endl;
+        cout << "Author: " << author << endl;
+
+        if (isAvailable)
+            cout << "Available\n";
+        else
+            cout << "Not Available\n";
     }
 
-    void withdraw(float amount) {
-        if (amount > balance)
-            cout << "Insufficient funds!\n";
-        else {
-            balance = balance - amount;
-            cout << "Withdrawn: " << amount << "\n";
-        }
+    void checkout() {
+        isAvailable = false;
     }
 
-    void display() {
-        cout << "Account No : " << accountNumber << "\n";
-        cout << "Name       : " << holderName << "\n";
-        cout << "Balance    : " << balance << "\n";
-        cout << "------------------------\n";
+    void returnBook() {
+        isAvailable = true;
     }
 };
 
+void printBookInfo(const LibraryBook& book) {
+    book.display();
+}
+
 int main() {
-    BankAccount a1;                          
-    BankAccount a2(101, "Alice", 5000.0);    
+    LibraryBook b1("C++ Programming", "Bjarne");
 
-    a1.display();
+    printBookInfo(b1);
 
-    a2.deposit(1500);
-    a2.withdraw(200);
-    a2.withdraw(9999);  
-    a2.display();
+    b1.checkout();
+
+    cout << "\nAfter Checkout:\n";
+    b1.display();
+
+    b1.returnBook();
+
+    cout << "\nAfter Return:\n";
+    b1.display();
 
     return 0;
 }
+

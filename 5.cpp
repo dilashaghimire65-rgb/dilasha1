@@ -1,41 +1,50 @@
+
 #include <iostream>
 using namespace std;
 
-class StudentClass {
+class Temperature {
+private:
+    float celsius;
+
 public:
-    int* ids;
-    int size;
-
-    StudentClass(int n) {
-        size = n;
-        ids = new int[n];
-        cout << "Enter " << n << " student IDs:\n";
-        for (int i = 0; i < n; i++) {
-            cin >> ids[i];
-        }
+    Temperature(float c) {
+        celsius = c;
     }
 
-       void display() {
-        cout << "Student IDs: ";
-        for (int i = 0; i < size; i++) {
-            cout << ids[i] << " ";
-        }
-        cout << endl;
+    void setTemp(float t) {
+        celsius = t;
     }
 
-      ~StudentClass() {
-        delete[] ids;
-        cout << "Memory freed\n";
+    float toFahrenheit() const {
+        return (celsius * 9 / 5) + 32;
     }
+
+    float toKelvin() const {
+        return celsius + 273.15;
+    }
+
+    friend bool areEqual(Temperature t1,
+                         Temperature t2);
 };
 
-int main() {
-    int n;
-    cout << "How many students? ";
-    cin >> n;
+bool areEqual(Temperature t1,
+              Temperature t2) {
+    return t1.celsius == t2.celsius;
+}
 
-    StudentClass s(n);
-    s.display();
+int main() {
+    Temperature t1(25);
+    Temperature t2(25);
+    cout << "Fahrenheit = "
+         << t1.toFahrenheit() << endl;
+
+    cout << "Kelvin = "
+         << t1.toKelvin() << endl;
+
+    if (areEqual(t1, t2))
+        cout << "Temperatures are Equal";
+    else
+        cout << "Temperatures are Not Equal";
 
     return 0;
 }
